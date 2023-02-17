@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import tech.tablesaw.api.DoubleColumn;
+import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
 import tech.tablesaw.io.xlsx.*;
+import tech.tablesaw.selection.Selection;
 import tech.tablesaw.io.csv.*;
 
 public class ExcelReader {
@@ -62,6 +65,22 @@ public class ExcelReader {
                                                     + currentType + Colors.RESET));
                         }
                     }
+                    List<String> scoreCols = Arrays.asList("score1", "score2", "score3");
+                    for (String col : scoreCols) {
+
+                        StringColumn parser = result.column(col).asStringColumn();
+
+                        for (String a : parser) {
+                            if (Float.parseFloat(a) < 0 || Float.parseFloat(a) > 5) {
+                                throw new Exception(
+                                        String.format("Error value on column: %s \nReceived values: %s",
+                                                col + Colors.RESET,
+                                                Colors.RED + a + Colors.RESET));
+                            }
+                        }
+
+                    }
+
                     ExcelReader.file = input;
                     break;
                 } catch (Exception nfe) {
