@@ -20,11 +20,11 @@ public class App {
         processData(t);
         t = t.sortDescendingOn("globalScore");
         print(t);
-        plots(t);
+        // plots(t);
         try {
-            ExcelReader.writeTable(t);
+            ExcelReader.saveFile(t);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -37,7 +37,6 @@ public class App {
     public static void processData(Table t) {
         DoubleColumn scores = DoubleColumn.create("globalScore");
         BooleanColumn approvers = BooleanColumn.create("approved");
-
         t.forEach(row -> {
             double globalScore = row.getNumber("score1") * 0.2 +
                     row.getNumber("score2") * 0.3 +
@@ -50,6 +49,7 @@ public class App {
     }
 
     public static void plots(Table t) {
+
         Table t2 = t.countBy(t.categoricalColumn("approved"));
         PieTrace trace = PieTrace.builder(t2.categoricalColumn("approved"),
                 t2.numberColumn("Count")).build();
@@ -66,4 +66,5 @@ public class App {
                         "approved", // grouping column name
                         "mean [globalScore]")); // numeric column name
     }
+
 }

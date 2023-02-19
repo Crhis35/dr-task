@@ -18,6 +18,13 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+  <repositories>
+    <repository>
+      <id>AsposeJavaAPI</id>
+      <name>Aspose Java API</name>
+      <url>https://repository.aspose.com/repo/</url>
+    </repository>
+  </repositories>
 
   <dependencies>
 
@@ -26,7 +33,11 @@
       <artifactId>tablesaw-jsplot</artifactId>
       <version>0.43.1</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.aspose</groupId>
+      <artifactId>aspose-cells</artifactId>
+      <version>21.6</version>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
